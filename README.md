@@ -1,199 +1,4 @@
-# YZ Local Search (云智AI本地搜)
-
-<p align="center">
-  <b>One-click install. Zero config. Give your AI assistant real-time web search.</b>
-</p>
-
----
-
-## Introduction
-
-**YZ Local Search** is a local web search service built on the open-source [SearXNG](https://github.com/searxng/searxng) meta-search engine. It connects to AI assistants like Claude Code and Claude Desktop via the MCP (Model Context Protocol), giving them real-time access to the internet.
-
-No cloud API, no complex setup. Install and go.
-
-### Why We Built This
-
-#### 1. AI needs search. We make it safe.
-
-Most MCP search solutions call third-party search APIs directly — what happens to your queries along the chain is opaque. Where does your data go? Who can see it? There's no way to know.
-
-YZ Local Search runs the search engine **entirely on your machine**: your queries go directly from your computer → to the search engine → results come straight back. No middleman, no data leakage, fully auditable.
-
-#### 2. CLI is hard. We made it GUI.
-
-Typical MCP services require command-line setup and configuration — not friendly for non-technical users. We wrapped SearXNG + MCP Server with a **graphical management interface**:
-
-- 🟢 One-click start/stop for search services
-- 📋 One-click copy MCP config to clipboard
-- 🔧 Visual proxy and port settings
-- 📊 Real-time service status monitoring
-- 📌 System tray support
-
-Use MCP search like any other desktop app — no terminal required.
-
-#### 3. MCP is still the standard for AI search
-
-While some AI products (ChatGPT, Claude Web) have built-in search, developers and enterprises using the API directly still rely on MCP to connect search capabilities. YZ Local Search is built for exactly this — a lightweight, secure, ready-to-use local MCP search solution.
-
-#### 4. Free forever. No usage anxiety.
-
-Nearly every online search API follows the same playbook: free tier to start, then the meter starts running. Before long, you're staring at your dashboard wondering: *Am I going over the limit this month? Should I upgrade my plan?*
-
-YZ Local Search solves this at the root: **completely free, unlimited queries, no quota tracking**. Search as much as you want — there's no meter, no bill, nothing to watch.
-
-To be fair, a locally-hosted search engine can't match the result quality of Google or Bing's commercial APIs. But what you give up in quality, you gain back in **peace of mind** — no account balance to check, no second-guessing whether a search is "worth it," no end-of-month dread. For individual developers and daily use, that freedom is often worth more than perfect results.
-
----
-
-## Key Features
-
-### 🚀 Zero-Config Install
-- ❌ No Docker required
-- ❌ No Python setup
-- ❌ No command line
-- ✅ GUI app, double-click to run
-- ✅ ~126MB package, 3-minute install
-
-### 🔒 Privacy & Security
-- **Runs locally** — all queries sent from your machine, no third-party servers
-- **You own your data** — config and history stay on your device
-- **No accounts** — no registration, no login
-
----
-
-## Quick Start
-
-### Windows Users
-1. Download the latest installer from [Releases](../../releases)
-2. Double-click to install
-3. Launch the app
-4. Click "Start Service" → "Copy MCP Config"
-5. Paste into your AI assistant's config file
-
-### Docker (Cross-Platform)
-```bash
-docker compose up -d
-```
-SearXNG runs at `http://localhost:18888`, MCP Server at `http://localhost:19000/sse`.
-
-### Manual Setup
-```bash
-# 1. Install SearXNG: https://github.com/searxng/searxng
-# 2. Install dependencies
-pip install -r requirements.txt
-# 3. Start MCP Server
-export SEARXNG_URL="http://localhost:18888"
-python -m src.mcp_searxng.server
-```
-
-### MCP Client Configuration
-Add to your Claude Code `.claude.json` or `.mcp.json`:
-```json
-{
-  "mcpServers": {
-    "yz_local_search": {
-      "type": "sse",
-      "url": "http://localhost:19000/sse"
-    }
-  }
-}
-```
-
----
-
-## Features
-
-### MCP Tools
-| Tool | Function | Parameters |
-|------|----------|------------|
-| `web_search` | Web search | query (required), count, engines |
-| `image_search` | Image search | query (required), count |
-
-### Desktop Management
-- Real-time service status
-- One-click start/stop
-- Proxy settings for Google
-- Copy MCP config to clipboard
-- System tray
-
----
-
-## System Requirements
-
-| Item | Requirement |
-|------|-------------|
-| OS | Windows 10/11 |
-| Disk | 200MB+ |
-| RAM | 4GB+ |
-| Network | Internet connection |
-
----
-
-## FAQ
-
-**Q: Why do I need this?**
-
-AI assistants using the API can't access the internet by default. While some AI products have built-in search, users calling the API directly still need MCP for search. YZ Local Search provides a local, secure solution for this.
-
-**Q: How is this different from a search API?**
-
-Using a search API means your queries pass through third-party cloud services — the data flow is opaque. YZ Local Search keeps everything on your machine, giving you full control. Pair it with an AI assistant and let it search, filter, and summarize results for you.
-
-**Q: Is my data safe?**
-
-Yes. All queries go directly from your computer to the search engines — no third-party servers involved. The software is open source (MIT) and fully auditable.
-
----
-
-## Disclaimer
-
-This software is an information retrieval tool. Search results are provided by third-party search engines. The developer is not responsible for the accuracy or legality of search results. Users must comply with applicable laws and regulations.
-
-See also: [DISCLAIMER.md](DISCLAIMER.md)
-
----
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).
-
-Built on these great open-source projects:
-
-| Project | Description | License |
-|---------|-------------|---------|
-| [SearXNG](https://github.com/searxng/searxng) | Core meta-search engine | AGPL |
-| [SearXNGforWindows](https://github.com/mbaozi/SearXNGforWindows) | Windows-native SearXNG adaptation | AGPL |
-| [MCP](https://modelcontextprotocol.io/) | Model Context Protocol | MIT |
-
-> **Special thanks to SearXNG** — the core search capability of YZ Local Search is built entirely on SearXNG, a privacy-respecting, self-hostable, powerful open-source meta-search engine. Without SearXNG, this project would not exist.
-
----
-
-## About
-
-<p align="center">
-  <b>Powered by 云感数字科技 (YunGan Digital Technology)</b><br>
-  <a href="https://www.yungantech.com">https://www.yungantech.com</a>
-</p>
-
-YunGan Digital Technology focuses on AI + XR R&D, providing digital transformation solutions for enterprises. We're committed to making AI accessible to everyone through technology innovation.
-
-- 🌐 [https://www.yungantech.com](https://www.yungantech.com)
-
----
-
-*Give your AI the power to search the web. No strings attached.*
-
----
-
-<br>
-<p align="center"><b>⬇ 中文文档</b></p>
-<br>
-
----
-
-# 云智AI本地搜
+# 云智AI本地搜 (YZ Local Search)
 
 <p align="center">
   <b>一个安装包，双击即用，让 AI 助手拥有联网搜索能力</b>
@@ -379,3 +184,198 @@ AI 助手通过 API 调用时默认无法联网。虽然部分 AI 产品已内�
 ---
 
 *让 AI 助手拥有联网能力，从此告别信息孤岛*
+
+---
+
+<br>
+<p align="center"><b>⬇ English</b></p>
+<br>
+
+---
+
+# YZ Local Search
+
+<p align="center">
+  <b>One-click install. Zero config. Give your AI assistant real-time web search.</b>
+</p>
+
+---
+
+## Introduction
+
+**YZ Local Search** is a local web search service built on the open-source [SearXNG](https://github.com/searxng/searxng) meta-search engine. It connects to AI assistants like Claude Code and Claude Desktop via the MCP (Model Context Protocol), giving them real-time access to the internet.
+
+No cloud API, no complex setup. Install and go.
+
+### Why We Built This
+
+#### 1. AI needs search. We make it safe.
+
+Most MCP search solutions call third-party search APIs directly — what happens to your queries along the chain is opaque. Where does your data go? Who can see it? There's no way to know.
+
+YZ Local Search runs the search engine **entirely on your machine**: your queries go directly from your computer → to the search engine → results come straight back. No middleman, no data leakage, fully auditable.
+
+#### 2. CLI is hard. We made it GUI.
+
+Typical MCP services require command-line setup and configuration — not friendly for non-technical users. We wrapped SearXNG + MCP Server with a **graphical management interface**:
+
+- 🟢 One-click start/stop for search services
+- 📋 One-click copy MCP config to clipboard
+- 🔧 Visual proxy and port settings
+- 📊 Real-time service status monitoring
+- 📌 System tray support
+
+Use MCP search like any other desktop app — no terminal required.
+
+#### 3. MCP is still the standard for AI search
+
+While some AI products (ChatGPT, Claude Web) have built-in search, developers and enterprises using the API directly still rely on MCP to connect search capabilities. YZ Local Search is built for exactly this — a lightweight, secure, ready-to-use local MCP search solution.
+
+#### 4. Free forever. No usage anxiety.
+
+Nearly every online search API follows the same playbook: free tier to start, then the meter starts running. Before long, you're staring at your dashboard wondering: *Am I going over the limit this month? Should I upgrade my plan?*
+
+YZ Local Search solves this at the root: **completely free, unlimited queries, no quota tracking**. Search as much as you want — there's no meter, no bill, nothing to watch.
+
+To be fair, a locally-hosted search engine can't match the result quality of Google or Bing's commercial APIs. But what you give up in quality, you gain back in **peace of mind** — no account balance to check, no second-guessing whether a search is "worth it," no end-of-month dread. For individual developers and daily use, that freedom is often worth more than perfect results.
+
+---
+
+## Key Features
+
+### 🚀 Zero-Config Install
+- ❌ No Docker required
+- ❌ No Python setup
+- ❌ No command line
+- ✅ GUI app, double-click to run
+- ✅ ~126MB package, 3-minute install
+
+### 🔒 Privacy & Security
+- **Runs locally** — all queries sent from your machine, no third-party servers
+- **You own your data** — config and history stay on your device
+- **No accounts** — no registration, no login
+
+---
+
+## Quick Start
+
+### Windows Users
+1. Download the latest installer from [Releases](../../releases)
+2. Double-click to install
+3. Launch the app
+4. Click "Start Service" → "Copy MCP Config"
+5. Paste into your AI assistant's config file
+
+### Docker (Cross-Platform)
+```bash
+docker compose up -d
+```
+SearXNG runs at `http://localhost:18888`, MCP Server at `http://localhost:19000/sse`.
+
+### Manual Setup
+```bash
+# 1. Install SearXNG: https://github.com/searxng/searxng
+# 2. Install dependencies
+pip install -r requirements.txt
+# 3. Start MCP Server
+export SEARXNG_URL="http://localhost:18888"
+python -m src.mcp_searxng.server
+```
+
+### MCP Client Configuration
+Add to your Claude Code `.claude.json` or `.mcp.json`:
+```json
+{
+  "mcpServers": {
+    "yz_local_search": {
+      "type": "sse",
+      "url": "http://localhost:19000/sse"
+    }
+  }
+}
+```
+
+---
+
+## Features
+
+### MCP Tools
+| Tool | Function | Parameters |
+|------|----------|------------|
+| `web_search` | Web search | query (required), count, engines |
+| `image_search` | Image search | query (required), count |
+
+### Desktop Management
+- Real-time service status
+- One-click start/stop
+- Proxy settings for Google
+- Copy MCP config to clipboard
+- System tray
+
+---
+
+## System Requirements
+
+| Item | Requirement |
+|------|-------------|
+| OS | Windows 10/11 |
+| Disk | 200MB+ |
+| RAM | 4GB+ |
+| Network | Internet connection |
+
+---
+
+## FAQ
+
+**Q: Why do I need this?**
+
+AI assistants using the API can't access the internet by default. While some AI products have built-in search, users calling the API directly still need MCP for search. YZ Local Search provides a local, secure solution for this.
+
+**Q: How is this different from a search API?**
+
+Using a search API means your queries pass through third-party cloud services — the data flow is opaque. YZ Local Search keeps everything on your machine, giving you full control. Pair it with an AI assistant and let it search, filter, and summarize results for you.
+
+**Q: Is my data safe?**
+
+Yes. All queries go directly from your computer to the search engines — no third-party servers involved. The software is open source (MIT) and fully auditable.
+
+---
+
+## Disclaimer
+
+This software is an information retrieval tool. Search results are provided by third-party search engines. The developer is not responsible for the accuracy or legality of search results. Users must comply with applicable laws and regulations.
+
+See also: [DISCLAIMER.md](DISCLAIMER.md)
+
+---
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
+Built on these great open-source projects:
+
+| Project | Description | License |
+|---------|-------------|---------|
+| [SearXNG](https://github.com/searxng/searxng) | Core meta-search engine | AGPL |
+| [SearXNGforWindows](https://github.com/mbaozi/SearXNGforWindows) | Windows-native SearXNG adaptation | AGPL |
+| [MCP](https://modelcontextprotocol.io/) | Model Context Protocol | MIT |
+
+> **Special thanks to SearXNG** — the core search capability of YZ Local Search is built entirely on SearXNG, a privacy-respecting, self-hostable, powerful open-source meta-search engine. Without SearXNG, this project would not exist.
+
+---
+
+## About
+
+<p align="center">
+  <b>Powered by 云感数字科技 (YunGan Digital Technology)</b><br>
+  <a href="https://www.yungantech.com">https://www.yungantech.com</a>
+</p>
+
+YunGan Digital Technology focuses on AI + XR R&D, providing digital transformation solutions for enterprises. We're committed to making AI accessible to everyone through technology innovation.
+
+- 🌐 [https://www.yungantech.com](https://www.yungantech.com)
+
+---
+
+*Give your AI the power to search the web. No strings attached.*
