@@ -382,9 +382,11 @@ class MainWindow(QMainWindow):
         main_layout.addSpacing(12)
 
         # === 公司信息 ===
+        company_layout = QVBoxLayout()
+        company_layout.setSpacing(2)
+
         company_row = QHBoxLayout()
         company_row.addStretch()
-
         company_btn = QPushButton("Powered by 云感数字科技")
         company_btn.setMinimumHeight(24)
         company_btn.setStyleSheet(f"""
@@ -401,8 +403,23 @@ class MainWindow(QMainWindow):
         company_btn.clicked.connect(lambda: os.startfile("https://www.yungantech.com"))
         company_row.addWidget(company_btn)
         company_row.addStretch()
+        company_layout.addLayout(company_row)
 
-        main_layout.addLayout(company_row)
+        # 官网网址
+        url_row = QHBoxLayout()
+        url_row.addStretch()
+        website_lbl = QLabel("https://www.yungantech.com")
+        website_lbl.setStyleSheet(f"""
+            QLabel {{
+                background: transparent; color: {Colors.TEXT_MUTED};
+                font-size: 10px; padding: 0px 8px;
+            }}
+        """)
+        url_row.addWidget(website_lbl)
+        url_row.addStretch()
+        company_layout.addLayout(url_row)
+
+        main_layout.addLayout(company_layout)
 
         # === 版本脚标 ===
         main_layout.addSpacing(4)
