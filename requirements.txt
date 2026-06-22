@@ -1,0 +1,20 @@
+# 云智AI本地搜 - Python 依赖
+# MCP 协议
+mcp>=1.0.0
+starlette>=0.27.0
+uvicorn>=0.23.0
+
+# HTTP 请求
+requests>=2.31.0
+
+# UI 框架 (桌面应用)
+PyQt5>=5.15.0
+
+# 剪贴板
+pyperclip>=1.8.0
+
+# 配置解析
+PyYAML>=6.0
+
+# 系统托盘
+Pillow>=10.0.0

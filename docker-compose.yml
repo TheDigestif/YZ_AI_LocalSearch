@@ -1,0 +1,40 @@
+# 云智AI本地搜 - Docker 部署方案
+# 一键启动 SearXNG + MCP Server
+
+version: "3.8"
+
+services:
+  searxng:
+    image: searxng/searxng:latest
+    container_name: yz-searxng
+    ports:
+      - "18888:8080"
+    volumes:
+      - ./docker/searxng/settings.yml:/etc/searxng/settings.yml:ro
+      - ./docker/searxng/limiter.toml:/etc/searxng/limiter.toml:ro
+    environment:
+      - SEARXNG_BASE_URL=http://localhost:18888/
+    restart: unless-stopped
+    networks:
+      - yz-network
+
+  mcp-server:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    container_name: yz-mcp-server
+    ports:
+      - "19000:19000"
+    environment:
+      - SEARXNG_URL=http://searxng:8080
+      - SEARXNG_PORT=8080
+      - MCP_PORT=19000
+    depends_on:
+      - searxng
+    restart: unless-stopped
+    networks:
+      - yz-network
+
+networks:
+  yz-network:
+    driver: bridge

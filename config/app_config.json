@@ -1,0 +1,9 @@
+{
+    "searxng_port": 18888,
+    "mcp_port": 19000,
+    "proxy_enabled": false,
+    "proxy_address": "",
+    "autostart": false,
+    "minimize_on_close": false,
+    "start_services_on_launch": false
+}

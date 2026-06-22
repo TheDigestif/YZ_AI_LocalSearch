@@ -1,0 +1,79 @@
+# SearXNG Docker 配置
+# 参考: https://docs.searxng.org/admin/settings/
+
+use_default_settings: true
+general:
+  instance_name: "YZ Local Search"
+  debug: false
+  enable_metrics: false
+
+search:
+  safe_search: 0
+  autocomplete: ""
+  default_lang: "auto"
+  formats:
+    - html
+    - json
+
+server:
+  port: 8080
+  bind_address: "0.0.0.0"
+  secret_key: "change-me-to-a-random-string"
+  limiter: false
+  image_proxy: false
+  method: "POST"
+
+ui:
+  default_theme: simple
+  query_in_title: false
+  infinite_scroll: false
+  search_on_category_select: true
+
+outgoing:
+  request_timeout: 3.0
+  pool_connections: 100
+  pool_maxsize: 20
+  enable_http2: true
+  # 代理配置（可选，用于访问 Google）
+  # proxies:
+  #   http: http://127.0.0.1:7890
+  #   https: http://127.0.0.1:7890
+
+engines:
+  # 中文搜索
+  - name: baidu
+    engine: baidu
+    shortcut: bd
+    disabled: false
+
+  - name: sogou
+    engine: sogou
+    shortcut: sg
+    disabled: false
+
+  # 英文搜索
+  - name: google
+    engine: google
+    shortcut: go
+    disabled: false
+
+  - name: bing
+    engine: bing
+    shortcut: bi
+    disabled: false
+
+  - name: duckduckgo
+    engine: duckduckgo
+    shortcut: ddg
+    disabled: false
+
+  # 图片搜索
+  - name: bing images
+    engine: bing_images
+    shortcut: bii
+    disabled: false
+
+  - name: google images
+    engine: google_images
+    shortcut: goi
+    disabled: false
